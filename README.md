@@ -27,7 +27,7 @@ proxy-server
 1. docker-compose.yml
 
 ```yaml
-version: '3.3'
+version: "3.3"
 
 services:
   v2ray:
@@ -54,16 +54,21 @@ services:
 2. caddy/Caddyfile
 
 ```
-example.com {
-  tls {
-    dns cloudflare {env.CLOUDFLARE_API_TOKEN}
-  }
+{
+  email youremail@example.com
+}
 
-  reverse_proxy /ray localhost:10086 {
-    transport http {
-      tls
-    }
+yourdomain.com {
+  reverse_proxy /v2ray localhost:10086 {
+    header_upstream Host {host}
+    header_upstream X-Real-IP {remote}
+    header_upstream X-Forwarded-For {remote}
+    header_upstream X-Forwarded-Proto {scheme}
   }
+}
+
+tls {
+  dns cloudflare {env.CLOUDFLARE_API_TOKEN}
 }
 ```
 
@@ -71,11 +76,6 @@ example.com {
 
 ```json
 {
-  "log": {
-    "access": "/var/log/v2ray/access.log",
-    "error": "/var/log/v2ray/error.log",
-    "loglevel": "warning"
-  },
   "inbounds": [
     {
       "port": 10086,
@@ -83,25 +83,30 @@ example.com {
       "settings": {
         "clients": [
           {
-            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",
+            "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
             "alterId": 64
           }
-        ],
-        "decryption": "none"
+        ]
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/ray"
+          "path": "/v2ray"
         },
-        "security": "tls"
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "/etc/v2ray/certs/fullchain.pem",
+              "keyFile": "/etc/v2ray/certs/privkey.pem"
+            }
+          ]
+        }
       }
     }
   ],
   "outbounds": [
     {
-      "protocol": "freedom",
-      "settings": {}
+      "protocol": "freedom"
     }
   ]
 }
@@ -111,10 +116,10 @@ example.com {
 
 在 proxy-server 文件夹下运行以下命令启动代理服务器：
 
-```docker-compose up -d```
+`docker-compose up -d`
 此命令将在后台启动 v2ray 和 caddy 服务。您可以使用以下命令查看服务状态：
 
-```docker-compose ps```
+`docker-compose ps`
 如果服务启动成功，您应该会看到类似于以下输出：
 
 ```bash
@@ -127,5 +132,6 @@ proxy-server_v2ray_1   /usr/bin/v2ray/v2ray -co ...   Up      127.0.0.1:10086->1
 
 Give a ⭐️ if this project helped you!
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
