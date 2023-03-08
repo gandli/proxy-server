@@ -1,0 +1,16 @@
+{
+  email youremail@example.com
+}
+
+yourdomain.com {
+  reverse_proxy /v2ray localhost:10086 {
+    header_upstream Host {host}
+    header_upstream X-Real-IP {remote}
+    header_upstream X-Forwarded-For {remote}
+    header_upstream X-Forwarded-Proto {scheme}
+  }
+}
+
+tls {
+  dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+}
