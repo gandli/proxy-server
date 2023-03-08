@@ -10,8 +10,7 @@ proxy-server
 ├── 📂caddy
 │   └── 📄Caddyfile
 ├── 📂v2ray
-│   ├── 📄config.json
-│   └── 📄vpoint_vmess_freedom.json
+│   └── 📄config.json
 ├── 📄docker-compose.yml
 └── 📄README.md
 ```
