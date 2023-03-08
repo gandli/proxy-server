@@ -7,22 +7,22 @@
 
 ```bash
 proxy-server
-├── caddy
-│   └── Caddyfile
-├── v2ray
-│   ├── config.json
-│   └── vpoint_vmess_freedom.json
-├── docker-compose.yml
-└── README.md
+├── 📂caddy
+│   └── 📄Caddyfile
+├── 📂v2ray
+│   ├── 📄config.json
+│   └── 📄vpoint_vmess_freedom.json
+├── 📄docker-compose.yml
+└── 📄README.md
 ```
 
-## 依赖
+## 💻依赖
 
-- [docker](https://www.docker.com/)
-- [v2ray](https://github.com/v2ray/v2ray-core)
-- [caddy](https://github.com/caddyserver/caddy)
+- 🐳[docker](https://www.docker.com/)
+- 🚀[v2ray](https://github.com/v2ray/v2ray-core)
+- 🤖[caddy](https://github.com/caddyserver/caddy)
 
-## 配置
+## 🛠️配置
 
 1. docker-compose.yml
 
@@ -112,7 +112,7 @@ tls {
 }
 ```
 
-## 使用
+## 🚀使用
 
 在 proxy-server 文件夹下运行以下命令启动代理服务器：
 
